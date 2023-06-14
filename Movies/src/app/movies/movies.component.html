@@ -1,0 +1,60 @@
+<div class="container d-flex flex-column align-items-center" style="height: 100vh;">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="d-flex justify-content-center">Choose a Movie!</h1>
+      <!-- Eingabe des Films -->
+      <div class="d-flex justify-content-center">
+        <form (submit)="searchMovies(searchTerm.value, $event)" class="mt-4">
+          <div class="input-group">
+            <input type="text" #searchTerm class="form-control rounded" placeholder="Suche nach einem Film">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-outline-primary">Suche</button>
+            </div>
+          </div>
+        </form>        
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="movie">
+        <div class="row">
+          <div class="col-md-12 d-flex justify-content-center mt-4">
+            <!-- Ausgabe der Filme -->
+            <div class="card mb-2" style="width: 18rem; border: none">
+              <img [src]="movie.Poster" alt="Poster kann nicht geladen werden" />
+              <div class="card-body">
+                <h4 class="card-title">{{movie.Title}}</h4>
+                <p class="card-text">{{ movie.Year }}</p>
+                <!-- Collapse mit Details -->
+                <div class="d-flex flex-column">
+                  <button class="btn btn-outline-primary mb-2" (click)="addToWatchlist(movie)">Add to Watchlist</button>
+                  <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" (click)="togglePlot()">
+                    view more
+                  </button>
+                </div>
+                <div style="min-height: 120px;">
+                  <div class="collapse collapse-horizontal" id="collapseWidthExample" [ngClass]="{ 'show': showPlot }">
+                    <div class="card card-body d-flex justify-content-center" style="width: 300px; border: none;">
+                      <p><strong>Director: </strong>{{movie.Director}}</p>
+                      <p><strong>Actors: </strong>{{movie.Actors}}</p>
+                      <p>
+                        <strong>Ratings: </strong>
+                      <ul>
+                        <li *ngFor="let rating of movie.Ratings">
+                          {{ rating.Source }}: {{ rating.Value }}
+                        </li>
+                      </ul>
+
+                      <p><strong>Plot: </strong>
+                        {{movie.Plot}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

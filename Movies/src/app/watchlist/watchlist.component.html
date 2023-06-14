@@ -1,0 +1,49 @@
+<div class="container d-flex flex-column align-items-center" style="height: 100vh;">
+  <h1 class="d-flex justify-content-center">Watchlist</h1>
+  <div class="container">
+    <div class="row watchlist-row">
+      <ng-container *ngFor="let movie of watchlist; let i = index">
+        <div class="col-12 col-md-4">
+          <div class="card mb-2 card-equal-height" style="width: 18rem; border: none">
+            <img [src]="movie.Poster" alt="Poster kann nicht geladen werden" class="card-img-top card-img-full" />
+            <div class="card-body d-flex justify-content-between">
+              <h4 class="card-title">{{ movie.Title }}</h4>
+              <p class="card-text">{{ movie.Year }}</p>
+
+              <div class="d-flex flex-column">
+              <form (submit)="removeFromWatchlist(movie.Title)" class="mt-4">
+                <button type="submit" class="btn btn-outline-primary mb-2">Remove from Watchlist</button>
+              </form>
+              <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#collapseWidthExample' + i" aria-expanded="false"
+                    [attr.aria-controls]="'collapseWidthExample' + i" (click)="togglePlot(i)">
+                    view more
+              </button>
+              </div>
+              <div style="position: relative; min-height: 120px;">
+                <div [id]="'collapseWidthExample' + i" class="collapse collapse-horizontal position-absolute"
+                     [ngClass]="{ 'show': showPlot[i] }" style="z-index: 9999;">
+                  <div class="card card-body d-flex justify-content-center" style="width: 300px; border: none;">
+                    <p><strong>Director: </strong>{{ movie.Director }}</p>
+                    <p><strong>Actors: </strong>{{ movie.Actors }}</p>
+                    <p>
+                      <strong>Ratings: </strong>
+                      <ul>
+                        <li *ngFor="let rating of movie.Ratings">
+                          {{ rating.Source }}: {{ rating.Value }}
+                        </li>
+                      </ul>
+                    <p><strong>Plot: </strong>{{ movie.Plot }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div *ngIf="watchlist && watchlist.length === 0">
+    <p class="text-center mt-4">Your Watchlist is empty.</p>
+  </div>
+</div>
