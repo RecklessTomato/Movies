@@ -10,33 +10,30 @@ import { WatchlistService } from '../watchlist/watchlist.service';
 export class MoviesComponent {
   movie: any;
   showPlot: boolean = true;
-  
-  
-  
+
+
+
 // hier kommt die API Schnittstelle
 async searchMovies(searchTerm : string, event : Event): Promise<void> {
   event.preventDefault();
-
-  try{
-
-    const apiKey = 'http://www.omdbapi.com/?Apikey=288a03da&t=' + searchTerm;
+  const apiKey = 'http://www.omdbapi.com/?Apikey=288a03da&t=' + searchTerm;
 
   if (searchTerm){
-    const response = await axios.get(apiKey);
-    this.movie = response.data;
-    this.showPlot = false;
-    console.error(Error);
-  }
-} catch (error){
-    console.log('Fehler beim Abrufen der Filmdaten:', error);
+    await axios.get(apiKey).then(response => {
+      this.movie = response.data;
+      this.showPlot = false;
+    }).catch(error => {
+      console.log('Fehler beim Abrufen der Filmdaten:', error);
       this.movie = null ; //  das Ergebnis auf null um anzuzeigen, dass ein Fehler aufgetreten ist
+    })
   }
 }
+
 
 // einfügen der Filme in die Watchlist
 constructor(private watchlistService: WatchlistService) {}
 
-addToWatchlist(movie: any): void {
+addToWatchlist(): void {
   this.watchlistService.addToWatchlist(this.movie);
 }
 
