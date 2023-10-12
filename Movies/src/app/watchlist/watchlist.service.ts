@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-
+import { Movie } from '../movie';
 @Injectable({
   providedIn: 'root'
 })
 export class WatchlistService {
-  private watchlist: any[] = [];
+  private watchlist: Movie[] = [];
 
-  addToWatchlist(movie: any): void {
-    const existingMovie = this.watchlist.find(item => item.Title === movie.Title);
+  addToWatchlist(movieToAdd: Movie): void {
+    const existingMovie = this.watchlist.find(movie => movie.Title === movieToAdd.Title);
     if (!existingMovie) {
-      this.watchlist.push(movie);
+      this.watchlist.push(movieToAdd);
     } else {
-      // Film bereits in der Watchlist vorhanden
-      console.log('Film bereits in der Watchlist vorhanden!');
+      console.log('Movie already in Watchlist!');
     }
   }
 
