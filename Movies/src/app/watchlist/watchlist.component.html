@@ -5,7 +5,7 @@
       <ng-container *ngFor="let movie of watchlist; let i = index">
         <div class="col-12 col-md-4">
           <div class="card mb-2 card-equal-height" style="width: 18rem; border: none">
-            <img [src]="movie.Poster" alt="Poster kann nicht geladen werden" class="card-img-top card-img-full" />
+            <img [src]="movie.Poster" alt="No Poster found" class="card-img-top card-img-full" />
             <div class="card-body d-flex justify-content-between">
               <h4 class="card-title">{{ movie.Title }}</h4>
               <p class="card-text">{{ movie.Year }}</p>
